@@ -1,4 +1,14 @@
 FROM java:openjdk-7-jdk
+MAINTAINER TheIdleDeveloper
+
+RUN apt-get update -y --no-install-recommends --no-install-suggests && \
+    apt-get clean
+
+RUN apt-get install -y --no-install-recommends --no-install-suggests \
+      curl \
+      tar \
+      bash && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV MAVEN_VERSION 3.3.9
 
