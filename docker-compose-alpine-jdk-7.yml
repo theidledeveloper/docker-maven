@@ -1,8 +1,8 @@
 version: '2.0'
 
 services:
-  alpine_jdk-7:
+  alpine-jdk-7:
     build:
       context: ./jdk-7
       dockerfile: Dockerfile-alpine
-    image: theidledeveloper/maven:alpine_jdk-7
+    image: theidledeveloper/maven:3.3.9-alpine-jdk-7

@@ -5,4 +5,4 @@ services:
     build:
       context: ./jdk-7
       dockerfile: Dockerfile
-    image: theidledeveloper/maven:jdk-7
+    image: theidledeveloper/maven:3.3.9-jdk-7
