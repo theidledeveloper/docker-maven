@@ -1,0 +1,8 @@
+version: '2.0'
+
+services:
+  jdk-8:
+    build:
+      context: ./jdk-8
+      dockerfile: Dockerfile
+    image: theidledeveloper/maven:jdk-8

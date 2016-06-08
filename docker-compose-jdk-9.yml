@@ -1,0 +1,8 @@
+version: '2.0'
+
+services:
+  jdk-9:
+    build:
+      context: ./jdk-9
+      dockerfile: Dockerfile
+    image: theidledeveloper/maven:jdk-9

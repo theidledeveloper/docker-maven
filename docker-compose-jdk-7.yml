@@ -1,0 +1,8 @@
+version: '2.0'
+
+services:
+  jdk-7:
+    build:
+      context: ./jdk-7
+      dockerfile: Dockerfile
+    image: theidledeveloper/maven:jdk-7
