@@ -3,12 +3,12 @@ docker-maven
 
 # Supported tags and respective Dockerfile links
 
-* [jdk-7](https://github.com/carlossg/docker-maven/blob/master/jdk-7/Dockerfile)
-* [jdk-7-onbuild](https://github.com/carlossg/docker-maven/blob/master/jdk-7/onbuild/Dockerfile)
-* [latest, jdk-8](https://github.com/carlossg/docker-maven/blob/master/jdk-8/Dockerfile)
-* [onbuild, jdk-8-onbuild](https://github.com/carlossg/docker-maven/blob/master/jdk-8/onbuild/Dockerfile)
-* [jdk-9](https://github.com/carlossg/docker-maven/blob/master/jdk-9/Dockerfile)
-* [jdk-9-onbuild](https://github.com/carlossg/docker-maven/blob/master/jdk-9/onbuild/Dockerfile)
+* [3.3.9-jdk-7](https://github.com/theidledeveloper/docker-maven/blob/master/jdk-7/Dockerfile)
+* [3.3.9-alpine-jdk-7](https://github.com/theidledeveloper/docker-maven/blob/master/jdk-7/Dockerfile-alpine)
+* [3.3.9-jdk-8](https://github.com/theidledeveloper/docker-maven/blob/master/jdk-8/Dockerfile)
+* [3.3.9-alpine-jdk-8](https://github.com/theidledeveloper/docker-maven/blob/master/jdk-8/Dockerfile-alpine)
+* [3.3.9-jdk-9](https://github.com/theidledeveloper/docker-maven/blob/master/jdk-9/Dockerfile)
+
 
 # What is Maven?
 
@@ -20,29 +20,15 @@ reporting and documentation from a central piece of information.
 
 # How to use this image
 
-## Create a Dockerfile in your Maven project
-
-    FROM maven:3.3-jdk-7-onbuild
-    CMD ["do-something-with-built-packages"]
-
-Put this file in the root of your project, next to the pom.xml.
-
-This image includes multiple ONBUILD triggers which should be all you need to bootstrap.
-The build will `COPY . /usr/src/app` and `RUN mvn install`.
-
-You can then build and run the image:
-
-    docker build -t my-maven .
-    docker run -it --name my-maven-script my-maven
-
-
 ## Run a single Maven command
 
 For many simple projects, you may find it inconvenient to write a complete `Dockerfile`.
 In such cases, you can run a Maven project by using the Maven Docker image directly,
 passing a Maven command to `docker run`:
 
-    docker run -it --rm --name my-maven-project -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.3-jdk-7 mvn clean install
+```bash
+docker run -it --rm --name my-maven-project -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.3.9-jdk-7 mvn clean install
+```
 
 
 # Reusing the Maven local repository
@@ -78,22 +64,43 @@ Maven needs the user home to download artifacts to, and if the user does not exi
 
 For example, to run as user `1000` mounting the host' Maven repo
 
-    docker run -v ~/.m2:/var/maven/.m2 -ti --rm -u 1000 maven mvn -Duser.home=/var/maven archetype:generate
+```bash
+docker run -v ~/.m2:/var/maven/.m2 -ti --rm -u 1000 maven mvn -Duser.home=/var/maven archetype:generate
+```
+
+
+# Build the Image
+
+If you wish to build the images yourself a set of `docker-compose` files have been
+provided, one each for the different versions and os types.
+
+* [3.3.9-jdk-7](https://github.com/theidledeveloper/docker-maven/blob/master/docker-compose-jdk-7.yml)
+* [3.3.9-alpine-jdk-7](https://github.com/theidledeveloper/docker-maven/blob/master/docker-compose-alpine-jdk-7.yml)
+* [3.3.9-jdk-8](https://github.com/theidledeveloper/docker-maven/blob/master/docker-compose-jdk-8.yml)
+* [3.3.9-alpine-jdk-8](https://github.com/theidledeveloper/docker-maven/blob/master/docker-compose-alpine-jdk-8.yml)
+* [3.3.9-jdk-9](https://github.com/theidledeveloper/docker-maven/blob/master/docker-compose-alpine-jdk-9.yml)
+
+To build the alpine linux jdk 8 image simply run
+
+```bash
+docker-compose -f docker-compose-alpine-jdk-8.yml build
+```
+
+Change the argument to -f for the relevant image you wish to build.
+
 
 # User Feedback
 
 ## Issues
 
 If you have any problems with or questions about this image, please contact us
-through a [GitHub issue](https://github.com/carlossg/docker-maven/issues).
-
-You can also reach many of the official image maintainers via the `#docker-library` IRC channel on Freenode.
+through a [GitHub issue](https://github.com/theidledeveloper/docker-maven/issues).
 
 ## Contributing
 
 You are invited to contribute new features, fixes, or updates, large or small; we are always thrilled to receive pull requests, and do our best to process them as fast as we can.
 
-Before you start to code, we recommend discussing your plans through a [GitHub issue](https://github.com/carlossg/docker-maven/issues),
+Before you start to code, we recommend discussing your plans through a [GitHub issue](https://github.com/theidledeveloper/docker-maven/issues),
 especially for more ambitious contributions.
 This gives other contributors a chance to point you in the right direction,
 give you feedback on your design, and help you find out if someone else is working on the same thing.
